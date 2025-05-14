@@ -27,7 +27,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 @ShortName(value = "B4XAppium")
 @Author(value = "Walter Flores")
-@Version(value = 1.16f)
+@Version(value = 1.18f)
 @DependsOn(values = { "java-client-9.2.0.jar", "selenium-api-4.18.1.jar", "selenium-http-4.18.1.jar", 
 		"selenium-java-4.18.1.jar", "selenium-remote-driver-4.18.1.jar" })
 
@@ -38,7 +38,7 @@ public class B4XAppium {
 	
 	private WebElement el;
 	
-	public void Initialize(BA ba, String EventName, DesiredCapabilitiesWrapper capabilities) throws MalformedURLException {
+	public void Initialize(BA ba, String EventName, String URLAddress, int port, DesiredCapabilitiesWrapper capabilities) throws MalformedURLException {
 		mEventName = EventName.toLowerCase(BA.cul);
 		//DesiredCapabilities caps = new DesiredCapabilities();
 		//@SuppressWarnings("unchecked")
@@ -48,7 +48,7 @@ public class B4XAppium {
 		//	Object value = entry.getValue();
 		//	caps.setCapability(key, value);
 		//}
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), capabilities.getObject());
+		driver = new AndroidDriver(new URL(URLAddress + ":" + port + "/"), capabilities.getObject());
 	}
 	
 	public boolean isInitialized() {
@@ -81,6 +81,13 @@ public class B4XAppium {
 	
 	public WebElementWrapper findElementByxpath(String text) {
 		WebElement we = driver.findElement(By.xpath("//*[@text='" + text + "']"));
+		WebElementWrapper wew = new WebElementWrapper();
+		wew.setObject(we);
+		return wew;
+	}
+	
+	public WebElementWrapper findElementByTagName(String tagName) {
+		WebElement we = driver.findElement(By.tagName(tagName));
 		WebElementWrapper wew = new WebElementWrapper();
 		wew.setObject(we);
 		return wew;
