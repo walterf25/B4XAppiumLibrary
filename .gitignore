@@ -1,0 +1,5 @@
+# Eclipse build output (rebuild locally; released artifacts live in B4J_Library/)
+/bin/
+
+# Eclipse metadata that's safe to regenerate
+.settings/
